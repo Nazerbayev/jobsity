@@ -312,7 +312,6 @@
         movieService.FindActorById = function(actorIday) {
             return $q(function(resolve, reject) {
                 var db = loadStorage();
-                console.log("find", db);
                 var match;
                 for (var i = db.actors.length; i--;) {
                     if (db.actors[i].Id == actorIday) {
@@ -335,7 +334,7 @@
                 }
             });
         };
-        
+                
         
 
         return movieService;
