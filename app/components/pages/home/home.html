@@ -4,6 +4,7 @@
         <p class="lead">Find a few Movies, Celebrities, TV Shows and more! (...if you previously loaded them beforehand...)</p>
       </div>
 </div>
+<button type="button" ng-click="preloadData()">Preload Data (will need to reload page)</button>
 <h3>Some recent Movies you may enjoy:</h3>
 <div class="row">
 <a class="flag col-sm-6" ng-repeat="movie in Movies | limitTo:5 " ui-sref="movie.edit({id:movie.Id})">

@@ -4,5 +4,9 @@
         $scope.Movies = AllMovies;
         console.log(AllMovies);
         
+        $scope.preloadData = function(){
+            MovieService.preloadData();
+        };
+        
     }]);
 })();

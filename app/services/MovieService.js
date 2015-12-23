@@ -26,6 +26,7 @@
             }
             for (var b = bd.movies.length; b--;) {
                 bd.movies[b].Release = new Date(bd.movies[b].Release);
+                bd.movies[b].Gross_Income = parseInt(bd.movies[b].Gross_Income);
             }
             return bd;
         };
@@ -333,6 +334,124 @@
                     resolve(match);
                 }
             });
+        };
+        
+        movieService.preloadData = function() {
+            return $q(function(resolve, reject){
+                var db = {
+                    movies: [
+                        {
+                            Id: 1,
+                            Name: "Dawn of the Dead",
+                            Release: new Date(2004,2,19),
+                            Gross_Income: 1500,
+                            Director: "Zack Snyder",
+                            Rating: 4,
+                            Raters: 0,
+                            Genres: ["zombies", "horror"],
+                            ImageUrl: "http://www.brandsoftheworld.com/sites/default/files/styles/logo-thumbnail/public/0016/9404/brand.gif?itok=yJKaDwzs"
+                        },
+                        {
+                            Id: 2,
+                            Name: "Juan de los Muertos",
+                            Release: new Date(2012,0,13),
+                            Gross_Income: 800,
+                            Director: "Alejandro Brugues",
+                            Rating: 1,
+                            Raters: 0,
+                            Genres: ["zombies", "humor"],
+                            ImageUrl: "http://img1.ak.crunchyroll.com/i/spire3/b9a14c92e8188bf60af8e80b4ab7a2771325596450_large.jpg"
+                        },
+                        {
+                            Id: 3,
+                            Name: "Machete",
+                            Release: new Date(2010,8,3),
+                            Gross_Income: 950,
+                            Director: "Robert Rodriguez",
+                            Rating: 1,
+                            Raters: 0,
+                            Genres: ["machete"],
+                            ImageUrl: "http://bitchinfilmreviews.com/wp-content/uploads/2010/10/Machete.jpg"
+                        },
+                        {
+                            Id: 4,
+                            Name: "Monty Python and the Holy Grail",
+                            Release: new Date(1975,4,23),
+                            Gross_Income: 2100,
+                            Director: "Terry Jilliam",
+                            Rating: 5,
+                            Raters: 0,
+                            Genres: ["parody", "funny"],
+                            ImageUrl: "http://media.chatterblock.com/django-summernote/2015-07-22/fac21717-d658-41b8-89c1-480a45851cce.png"
+                        }
+                    ],
+                    movie_seq: 4,
+                    actor_seq: 4,
+                    actors: [
+                        {
+                            Id: 1,
+                            Name: "Pepe",
+                            LastName: "Mujica",
+                            Gender: "M",
+                            BirthDate: new Date(1960,8,12),
+                            ImageUrl: "http://opinion.ubicatv.com/wp-content/uploads/2014/12/Pepe-Mujica-200x200.png"
+                        },
+                        {
+                            Id: 2,
+                            Name: "Cristina",
+                            LastName: "Fernandez",
+                            Gender: "F",
+                            BirthDate: new Date(1680,11,18),
+                            ImageUrl: "http://images.et.eltiempo.digital/contenido/mundo/latinoamerica/IMAGEN/IMAGEN-15120022-0.png"
+                        },
+                        {
+                            Id: 3,
+                            Name: "Mauricio",
+                            LastName: "Macri",
+                            Gender: "M",
+                            BirthDate: new Date(1600,3,4),
+                            ImageUrl: "http://capitalradio.es/wp-content/uploads/Reuters_Direct_Media/SpainOnlineReportTopNews/tagreuters.com2015binary_LYNXMPEBB10SY-BASEIMAGE-200x200.jpg"
+                        },
+                        {
+                            Id: 4,
+                            Name: "Mariano",
+                            LastName: "Rajoy",
+                            Gender: "M",
+                            BirthDate: new Date(1955,9,19),
+                            ImageUrl: "http://www.diarioamanecer.com.mx/wp-content/uploads/2014/10/Mariano-Rajoy-200x200.jpg"
+                        }
+                    ],
+                    relationships: [
+                        {
+                            Actor: 1,
+                            Movie: 1
+                        },
+                        {
+                            Actor: 1,
+                            Movie: 2
+                        },
+                        {
+                            Actor: 1,
+                            Movie: 3
+                        },
+                        {
+                            Actor: 2,
+                            Movie: 4
+                        },
+                        {
+                            Actor: 2,
+                            Movie: 1
+                        },
+                        {
+                            Actor: 3,
+                            Movie: 4
+                        }
+                        
+                    ]
+                };
+                localStorage.clear();
+                saveStorage(db);
+            });    
         };
                 
         
