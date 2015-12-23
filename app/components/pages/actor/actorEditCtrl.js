@@ -16,7 +16,7 @@
                 });
                 
             }
-        }
+        };
         
         $scope.save = function() {
             MovieService.AddOrUpdateActor($scope.actor, $scope.selectedMovies).then(function(status){
@@ -26,14 +26,14 @@
                 $scope.status_message = "Actor could not be saved, please try later...";
                 $scope.success = false;
             });
-        }
+        };
         $scope.reset = function() {
             $scope.actor.Name = "";
-            $scope.actor.LastName = ""
+            $scope.actor.LastName = "";
             $scope.actor.BirthDate = new Date(1900,0,1);
             $scope.actor.Gender = "F";
-            $scope.actor.ImageUrl = "http://placehold.it/200x200"
-        }
+            $scope.actor.ImageUrl = "http://placehold.it/200x200";
+        };
         $scope.selectMovie = function(movie) {
             var index = -1;
             for (var i = $scope.selectedMovies.length; i--;) {
@@ -45,7 +45,7 @@
             if (index === -1) {
                 $scope.selectedMovies.push(movie);
             }
-        }
+        };
         $scope.removeMovie = function(movie) {
             var index = -1;
             for (var ii = $scope.selectedMovies.length; ii--;) {
@@ -56,7 +56,7 @@
             if (index !== -1) {
                 $scope.selectedMovies.splice(index, 1);
             }
-        }
+        };
 
 
     }]);

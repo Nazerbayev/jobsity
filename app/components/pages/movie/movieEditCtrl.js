@@ -15,7 +15,7 @@
                 });
                 
             }
-        }
+        };
         
         
         $scope.addGenre = function() {
@@ -23,7 +23,7 @@
                 $scope.movie.Genres.push($scope.newGenre);
                 $scope.newGenre = "";
             }
-        }
+        };
         $scope.selectActor = function(actor) {
             var index = -1;
             for (var i = $scope.selectedActors.length; i--;) {
@@ -35,7 +35,7 @@
             if (index === -1) {
                 $scope.selectedActors.push(actor);
             }
-        }
+        };
         $scope.removeActor = function(actor) {
             var index = -1;
             for (var ii = $scope.selectedActors.length; ii--;) {
@@ -46,10 +46,10 @@
             if (index !== -1) {
                 $scope.selectedActors.splice(index, 1);
             }
-        }
+        };
         $scope.removeGenre = function(index) {
             $scope.movie.Genres.splice(index,1);
-        }
+        };
         $scope.save = function() {
             MovieService.AddOrUpdateMovie($scope.movie, $scope.selectedActors).then(function(status){
                 $scope.status_message = "Movie was saved successfully!";
@@ -59,6 +59,6 @@
                 $scope.status_message = "Movie could not be saved, please try later...";
                 $scope.success = true;
             });
-        }
+        };
     }]);
 })();

@@ -9,7 +9,7 @@
                 $scope.knownActors = actors;
             });
             
-        }
+        };
         $scope.vote = function() {
             MovieService.rateMovie($scope.movie, $scope.voting.value).then(function(msg){
                 if (msg.status === "success"){
@@ -19,6 +19,6 @@
             }, function(reason){
                 
             });
-        }
+        };
     });
 })();

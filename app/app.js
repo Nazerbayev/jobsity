@@ -55,7 +55,7 @@
                         return MovieService.ListAllMovies();
                     }],
                     StarredMovies: ["MovieService", function(MovieService){
-                        return MovieService.FindMoviesByActorId(0)
+                        return MovieService.FindMoviesByActorId(0);
                     }]
                 }
             });
@@ -71,7 +71,7 @@
                         return MovieService.ListAllMovies();
                     }],
                     StarredMovies: ["$stateParams", "MovieService", function($stateParams, MovieService){
-                        return MovieService.FindMoviesByActorId($stateParams.id)
+                        return MovieService.FindMoviesByActorId($stateParams.id);
                     }]
                 }
             });
@@ -87,7 +87,7 @@
                         return MovieService.ListAllActors();
                     }],
                     MovieActors: ["MovieService", function(MovieService){
-                        return MovieService.FindActorsByMovieId(0)
+                        return MovieService.FindActorsByMovieId(0);
                     }]
                 }
             });
@@ -103,7 +103,7 @@
                         return MovieService.ListAllActors();
                     }],
                     MovieActors: ["$stateParams", "MovieService", function($stateParams, MovieService){
-                        return MovieService.FindActorsByMovieId($stateParams.id)
+                        return MovieService.FindActorsByMovieId($stateParams.id);
                     }]
                 }
             });

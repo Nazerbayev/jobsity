@@ -86,7 +86,7 @@
         movieService.recentMovies = function() {
             return $q(function(resolve, reject) {
                 var db = loadStorage();
-                var sorted_movies = db.movies.sort(function(a,b){return new Date(a.Release) - new Date(b.Release)});
+                var sorted_movies = db.movies.sort(function(a,b){return new Date(a.Release) - new Date(b.Release);});
                 resolve(sorted_movies.reverse());
             });    
         };
@@ -107,9 +107,9 @@
                 }
                 
                 //Buscamos todas las peliculas que aparecen en matches
-                for (var i = 0; i < matches.length; i++) {
+                for (var ix = 0; ix < matches.length; ix++) {
                     for (var ii = 0; ii < db.movies.length; ii++) {
-                        if (db.movies[ii].Id == matches[i]) {
+                        if (db.movies[ii].Id == matches[ix]) {
                             movie_matches.push(db.movies[ii]);
                         }
                     }
@@ -134,9 +134,9 @@
                 }
                 
                 //Buscamos todas las peliculas que aparecen en matches
-                for (var i = 0; i < matches.length; i++) {
+                for (var iz = 0; iz < matches.length; iz++) {
                     for (var ii = 0; ii < db.actors.length; ii++) {
-                        if (db.actors[ii].Id == matches[i]) {
+                        if (db.actors[ii].Id == matches[iz]) {
                             actor_matches.push(db.actors[ii]);
                         }
                     }
@@ -164,7 +164,7 @@
                 resolve({status: "success", new_rating: rating, raters: raters });
             });
             
-        }
+        };
         movieService.AddOrUpdateMovie = function(ovieMay, ewMembersCray) {
             return $q(function(resolve, reject) {
                 var db = loadStorage();
@@ -246,9 +246,9 @@
                     }
                 }
                 //Delete all relationships with actor equal to ActorId
-                for (var i = db.relationships.length; i--;) {
-                    if (db.relationships[i].Actor == ActorId) {
-                        db.relationships.splice(i, 1);
+                for (var iw = db.relationships.length; iw--;) {
+                    if (db.relationships[iw].Actor == ActorId) {
+                        db.relationships.splice(iw, 1);
                     }
                     
                 }
@@ -267,9 +267,9 @@
                     }
                 }
                 
-                for (var i = db.relationships.length; i--;) {
-                    if (db.relationships[i].Movie == ovieIdmay) {
-                        db.relationships.splice(i, 1);
+                for (var iq = db.relationships.length; iq--;) {
+                    if (db.relationships[iq].Movie == ovieIdmay) {
+                        db.relationships.splice(iq, 1);
                     }
                 }
                 
@@ -304,7 +304,7 @@
                         Genres: [],
                         ImageUrl: ""
                     };
-                    resolve(match)
+                    resolve(match);
                 }
             });
         };
@@ -331,7 +331,7 @@
                         BirthDate: new Date(1900,0,1),
                         ImageUrl: ""
                     };
-                    resolve(match)
+                    resolve(match);
                 }
             });
         };

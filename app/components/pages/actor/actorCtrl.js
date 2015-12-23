@@ -7,6 +7,6 @@
             MovieService.FindMoviesByActorId(actor.Id).then(function(movies){
                 $scope.knownMovies = movies;
             });
-        }
+        };
     }]);
 })();

@@ -2,7 +2,7 @@
     angular.module('starter').directive('actor', [function () {
         return {
             restrict: 'E',
-            templateUrl: 'components/actorDirective/actorDirective.html'
+            templateUrl: 'components/directives/actorDirective/actorDirective.html'
         };
     }]);
 })();
