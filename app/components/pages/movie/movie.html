@@ -1,0 +1,90 @@
+<div class="row" ng-if="!movie">
+    <div class="col-sm-12">
+        <h2 style="text-align:center">Click on a Movie below to see more Information</h2>
+
+    </div>
+    <br/>
+    <br/>
+</div>
+<div class="row" ng-if="movie">
+    <div>
+        <div class="col-sm-12">
+            <div class="thumbnail">
+                <img ng-src="{{movie.ImageUrl}}" alt="" style="width: 200px; height: 200px;">
+                <div class="caption">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <h3>{{movie.Name}}</h3>
+                            <ul>
+                                <li>Release Date: {{movie.Release | date: 'yyyy-MM-dd'}}</li>
+                                <li>Gross Income: {{movie.Gross_Income}}</li>
+                                <li>Director: {{movie.Director}}</li>
+                                <li>User Rating: {{movie.Rating | number:2}}</li>
+                                <li>Total Computed Ratings: {{movie.Raters}}</li>
+                                <li>Genres:
+                                    <ul>
+                                        <li ng-repeat="genre in movie.Genres">{{genre}}</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-sm-6">
+                            <h3>Rate this Movie</h3>
+                            <label class="radio-inline">
+                                <input type="radio" name="votingValues" id="inlineRadio1" value="1" ng-model="voting.value"> 1
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="votingValues" id="inlineRadio1" value="2" ng-model="voting.value"> 2
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="votingValues" id="inlineRadio1" value="3" ng-model="voting.value"> 3
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="votingValues" id="inlineRadio1" value="4" ng-model="voting.value"> 4
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="votingValues" id="inlineRadio1" value="5" ng-model="voting.value"> 5
+                            </label>
+                            <button type="button" ng-click="vote()">Vote</button>
+                        </div>
+                    </div>
+                <div class="row" ng-show="knownActors.length">
+                   <div class="col-sm-12">
+                    <h3>Cast:</h3>
+                    <div class="row">
+                        <div class="col-sm-3" ng-repeat="actorthumb in knownActors">
+                            <a class="thumbnail" ui-sref="actor.edit({id:actorthumb.Id})" >
+                                <img ng-src="{{actorthumb.ImageUrl}}" alt="" style="width: 50px; height: 50px;">
+                                <div class="caption">
+                                    <p>{{actorthumb.LastName}}, {{actorthumb.Name}}</p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                       
+                   </div>
+                </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<div class="row">
+    <fieldset>
+        <legend>Movie Database</legend>
+        <label class="pull-right">Search:
+            <input type="text" ng-model="searchNewMovie">
+        </label>
+        <table class="table table-striped table-condensed table-clickable">
+            <tr ng-repeat="movie in movies | filter: searchNewMovie" ng-click="selectMovie(movie)">
+                <td class="col-sm-1"><img ng-src="{{movie.ImageUrl}}" alt="" style="width:50px; height: 50px;"></td>
+                <td class="col-sm-10">{{movie.Name}} Rating: {{movie.Rating | number:2}} of {{movie.Raters}} votes.</td>
+                <td class="col-sm-1"><a ui-sref="movie.edit({id:movie.Id})" class="btn btn-primary">EDIT</a></td>
+            </tr>
+        </table>
+        <a class="pull-right btn btn-primary" ui-sref="movie.new">New Movie</a>
+    </fieldset>
+</div>

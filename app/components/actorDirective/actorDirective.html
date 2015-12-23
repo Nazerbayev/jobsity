@@ -1,0 +1,12 @@
+  <div class="col-sm-6 col-md-4">
+    <div class="thumbnail">
+      <img ng-src="{{actor.ImageUrl}}" alt="" style="width: 200px; height: 200px;">
+      <div class="caption">
+        <h3>{{actor.LastName}}, {{actor.Name}}</h3>
+        <ul>
+            <li>Gender: {{actor.Gender}}</li>
+            <li>Birth Date: {{actor.BirthDate | date: 'yyyy-MM-dd'}}</li>
+        </ul>
+      </div>
+    </div>
+  </div>

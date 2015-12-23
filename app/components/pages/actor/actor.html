@@ -1,0 +1,60 @@
+<div class="row" ng-if="!actor">
+    <div class="col-sm-12">
+        <h2 style="text-align:center">Click on an Actor below to see more Information</h2>
+
+    </div>
+    <br/>
+    <br/>
+</div>
+<div class="row" ng-if="actor">
+    <div class="col-sm-12">
+        <div class="thumbnail">
+            <img ng-src="{{actor.ImageUrl}}" alt="" style="width: 200px; height: 200px;">
+            <div class="caption">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h3>{{actor.LastName}}, {{actor.Name}}</h3>
+                        <ul>
+                            <li>Gender: {{actor.Gender}}</li>
+                            <li>Birth Date: {{actor.BirthDate | date: 'yyyy-MM-dd'}}</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row" ng-show="knownMovies.length">
+                   <div class="col-sm-12">
+                    <h3>Known for these Movies:</h3>
+                    <div class="row">
+                        <div class="col-sm-3" ng-repeat="moviethumb in knownMovies">
+                            <a class="thumbnail" ui-sref="movie.edit({id:moviethumb.Id})" >
+                                <img ng-src="{{moviethumb.ImageUrl}}" alt="" style="width: 50px; height: 50px;">
+                                <div class="caption">
+                                    <p>{{moviethumb.Name}}</p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                       
+                   </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <fieldset>
+        <legend>Actor Database</legend>
+        <label class="pull-right">Search:
+            <input type="text" ng-model="searchActor">
+        </label>
+        <table class="table table-striped table-condensed table-clickable">
+            <tr ng-repeat="actor in actors | filter: searchActor" ng-click="selectActor(actor)">
+                <td class="col-sm-1"><img ng-src="{{actor.ImageUrl}}" alt="" style="width:50px; height: 50px;"></td>
+                <td class="col-sm-10">{{actor.LastName}}, {{actor.Name}}</td>
+                <td class="col-sm-1"><a ui-sref="actor.edit({id:actor.Id})" class="btn btn-primary">EDIT</a></td>
+            </tr>
+        </table>
+        <a class="pull-right btn btn-primary" ui-sref="actor.new">New Actor</a>
+    </fieldset>
+</div>

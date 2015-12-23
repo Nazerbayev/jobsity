@@ -1,0 +1,20 @@
+<div class="col-sm-6 col-md-4">
+    <div class="thumbnail">
+        <img ng-src="{{movie.ImageUrl}}" alt="" style="width: 200px; height: 200px;">
+        <div class="caption">
+            <h3>{{movie.Name}}</h3>
+            <ul>
+                <li>Release Date: {{movie.Release | date: 'yyyy-MM-dd'}}</li>
+                <li>Gross Income: {{movie.Gross_Income}}</li>
+                <li>Director: {{movie.Director}}</li>
+                <li>User Rating: {{movie.Rating | number:2}}</li>
+                <li>Total Computed Ratings: {{movie.Raters}}</li>
+                <li>Genres:
+                    <ul>
+                        <li ng-repeat="genre in movie.Genres">{{genre}}</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

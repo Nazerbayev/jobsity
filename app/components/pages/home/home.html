@@ -1,0 +1,19 @@
+<div>
+<div class="jumbotron">
+        <h1>Welcome to ALMOST-IMDB</h1>
+        <p class="lead">Find a few Movies, Celebrities, TV Shows and more! (...if you previously loaded them beforehand...)</p>
+      </div>
+</div>
+<h3>Some recent Movies you may enjoy:</h3>
+<div class="row">
+<a class="flag col-sm-6" ng-repeat="movie in Movies | limitTo:5 " ui-sref="movie.edit({id:movie.Id})">
+    <div class="flag__image">
+        <img ng-src="{{movie.ImageUrl}}" alt="">
+    </div>
+    <div class="flag__body">
+        <p>{{movie.Name}} ({{movie.Release | date:'yyyy'}})</p>
+    </div>
+</a>
+        
+</div>
+

@@ -1,0 +1,124 @@
+<div class="row" ng-show="movie.Id">
+    <button type="button" class="btn btn-danger btn-small pull-right" ng-click="deleteProfile()">Delete this Movie</button>
+    <br/>
+</div>
+
+<div class="row">
+    <movie></movie>
+    <div class="col-sm-6 col-md-8">
+        <form novalidate class="form-horizontal" name="form">
+
+            <fieldset>
+                <legend>Edit Movie Information</legend>
+                <div class="form-group" ng-class="{'has-error': form.movieName.$invalid}">
+                    <label for="movieName" class="col-sm-2 control-label">Name</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="movieName" ng-model="movie.Name" name="movieName" required>
+                    </div>
+                </div>
+                <div class="form-group" ng-class="{'has-error': form.movieRelease.$invalid}">
+                    <label for="movieRelease" class="col-sm-2 control-label">Release Date</label>
+                    <div class="col-sm-10">
+                        <input type="date" class="form-control" id="movieRelease" ng-model="movie.Release" name="movieRelease" required>
+                    </div>
+                </div>
+                <div class="form-group" ng-class="{'has-error': form.movieGross.$invalid}">
+                    <label for="movieGross" class="col-sm-2 control-label">Gross Income</label>
+                    <div class="col-sm-10">
+                        <input type="number" class="form-control" id="movieGross" ng-model="movie.Gross_Income" name="movieGross" required min="0">
+                    </div>
+                </div>
+                <div class="form-group" ng-class="{'has-error': form.movieDirector.$invalid}">
+                    <label for="movieDirector" class="col-sm-2 control-label">Movie Director</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="movieDirector" ng-model="movie.Director" name="movieDirector" required>
+                    </div>
+                </div>
+                <div class="form-group" ng-class="{'has-error': form.movieImage.$invalid}">
+                    <label for="movieImage" class="col-sm-2 control-label">Image Url</label>
+                    <div class="col-sm-10">
+                        <input type="url" class="form-control" id="movieImage" ng-model="movie.ImageUrl" name="movieImage">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="actorName" class="col-sm-2 control-label">Genres</label>
+                    <div class="col-sm-10">
+                        <table class="table table-condensed">
+                            <tr ng-repeat="genre in movie.Genres">
+                                <td class="col-md-10">{{genre}}</td>
+                                <td class="col-md-2">
+                                    <button ng-click="removeGenre($index)">Delete</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col-md-10">
+                                    <input type="text" class="form-control" ng-model="newGenre" placeholder="New Genre">
+                                </td>
+                                <td class="col-md-2">
+                                    <button type="button" ng-click="addGenre()">Add</button>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </fieldset>
+            <div class="alert alert-danger" ng-if="form.$invalid && !form.$pristine">
+                <ul>
+                    <li ng-show="form.movieName.$error.required">Movie's Name field is required!</li>
+                    <li ng-show="form.movieGross.$error.required">Movie's Gross Income field is required!</li>
+                    <li ng-show="form.movieGross.$error.min">Movie's Gross Income can't be lower than 0$!</li>
+                    <li ng-show="form.movieDirector.$error.required">Movie's Director is required!</li>
+                    <li ng-show="form.movieImage.$error.url">Movie's Image Url is not a valid url!</li>
+                    <li ng-show="form.movieRelease.$error.required">Movie's Release Date is required!</li>
+                    <li ng-show="form.movieRelease.$error.date">Movie's Release Date is not a valid Date!</li>
+                </ul>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" class="btn btn-primary floating-btn" ng-disabled="form.$invalid" ng-click="save()">Save</button>
+                    <input type="button" class="btn" ng-click="reset()" value="Reset" />
+                </div>
+            </div>
+        </form>
+        <div class="alert" ng-class="{'alert-success': success, 'alert-danger': !success }" role="alert" ng-if="success===true">{{status_message}}</div>
+    </div>
+</div>
+<div class="row">
+    <fieldset>
+        <legend>Cast Members</legend>
+        <label class="pull-right">Search:
+            <input type="text," ng-model="searchActor">
+        </label>
+        <table class="table table-striped table-condensed">
+            <tr ng-repeat="actor in selectedActors | filter: searchActor">
+                <td class="col-sm-1">
+                    <button type="button" class="btn btn-danger" ng-click="removeActor(actor)">-</button>
+                </td>
+                <td class="col-sm-1"><img ng-src="{{actor.ImageUrl}}" alt="" style="width:50px; height: 50px;"></td>
+                <td class="col-sm-8">{{actor.LastName}}, {{actor.Name}}</td>
+                <td class="col-sm-2"><a ui-sref="actor.edit({id: actor.Id})">See Profile</a></td>
+            </tr>
+            <tr ng-if="!selectedActors.length">
+                <td>There are no Actors associated to this movie, would you like to add some?</td>
+            </tr>
+        </table>
+    </fieldset>
+</div>
+<div class="row">
+    <fieldset>
+        <legend>Add new Actors</legend>
+        <label class="pull-right">Search:
+            <input type="text" ng-model="searchNewActor">
+        </label>
+        <table class="table table-striped table-condensed">
+            <tr ng-repeat="actor in actors | filter: searchNewActor">
+                <td class="col-sm-1">
+                    <button type="button" class="btn btn-primary" ng-click="selectActor(actor)">+</button>
+                </td>
+                <td class="col-sm-1"><img ng-src="{{actor.ImageUrl}}" alt="" style="width:50px; height: 50px;"></td>
+                <td class="col-sm-8">{{actor.LastName}}, {{actor.Name}}</td>
+                <td class="col-sm-2"><a ui-sref="actor.edit({id: actor.Id})">See Profile</a></td>
+            </tr>
+        </table>
+    </fieldset>
+</div>

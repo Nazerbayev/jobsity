@@ -1,0 +1,99 @@
+<div class="row" ng-show="actor.Id">
+    <button type="button" class="btn btn-danger btn-small pull-right" ng-click="deleteProfile()">Delete this Actor</button>
+    <br/>
+</div>
+<div class="row">
+    <actor></actor>
+    <div class="col-sm-6 col-md-8">
+    <form novalidate class="form-horizontal" name="form">
+
+        <fieldset>
+            <legend>Edit <span ng-if="actor.Gender === 'F'">Actress</span><span ng-if="actor.Gender === 'M'">Actor</span> Information</legend>
+            <div class="form-group" ng-class="{'has-error': form.actorName.$invalid}">
+                <label for="actorName" class="col-sm-2 control-label">Name</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="actorName" ng-model="actor.Name" name="actorName" required>
+                </div>
+            </div>
+            <div class="form-group" ng-class="{'has-error': form.actorLastName.$invalid}">
+                <label for="actorLastName" class="col-sm-2 control-label">Last Name</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="actorLastName" ng-model="actor.LastName" name="actorLastName" required>
+                </div>
+            </div>
+            <div class="form-group" ng-class="{'has-error': form.genderOptions.$invalid}">
+                <label for="actorGender" class="col-sm-2 control-label">Gender</label>
+                <div class="col-sm-10">
+                    <label class="radio-inline">
+                        <input type="radio" name="genderOptions" id="genderRadio1" value="F" ng-model="actor.Gender" ng-required="!actor.Gender"> Female
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="genderOptions" id="genderRadio2" value="M" ng-model="actor.Gender" ng-required="!actor.Gender"> Male
+                    </label>            
+                </div>
+            </div>
+            <div class="form-group" ng-class="{'has-error': form.actorBirthDate.$invalid}">
+                <label for="actorBirthDate" class="col-sm-2 control-label">Birth Date</label>
+                <div class="col-sm-10">
+                    <input type="date" class="form-control" id="actorBirthDate" ng-model="actor.BirthDate" name="actorBirthDate" required max="{{today}}">
+                </div>
+            </div>
+            <div class="form-group" ng-class="{'has-error': form.actorImage.$invalid}">
+                <label for="actorImage" class="col-sm-2 control-label">Image Url</label>
+                <div class="col-sm-10">
+                    <input type="url" class="form-control" id="actorImage" ng-model="actor.ImageUrl" name="actorImage">
+                </div>
+            </div>
+        </fieldset>
+        <div class="alert alert-danger" ng-if="form.$invalid && !form.$pristine">
+            <ul>
+                <li ng-show="form.actorName.$error.required">Actor's Name field is required!</li>
+                <li ng-show="form.actorLastName.$error.required">Actor's Last Name field is required!</li>
+                <li ng-show="form.actorGender.$error.required">Actor's Gender is required!</li>
+                <li ng-show="form.actorBirthDate.$error.required">Actor's Birth Date is required!</li>
+                <li ng-show="form.actorBirthDate.$error.date">Actor's Birth Date is not a valid Date!</li>
+                <li ng-show="form.actorBirthDate.$error.max">Actor's Birth Date cannot be in the future!</li>
+                <li ng-show="form.actorImage.$error.url">Actor's Image Url is not a valid URL!</li>
+            </ul>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-primary floating-btn" ng-disabled="form.$invalid" ng-click="save()">Save</button>
+                <input type="button" class="btn" ng-click="reset()" value="Reset" />
+            </div>
+        </div>
+    </form>
+        <div class="alert" ng-class="{'alert-success': success, 'alert-danger': !success }" role="alert" ng-if="success===true">{{status_message}}</div>
+    </div>
+</div>
+<div class="row">
+   <fieldset>
+       <legend>Movie History</legend>
+    <label class="pull-right">Search:<input type="text," ng-model="searchMovie"></label>
+    <table class="table table-striped table-condensed">
+        <tr ng-repeat="movie in selectedMovies | filter: searchMovie">
+            <td class="col-sm-1"><button type="button" class="btn btn-danger" ng-click="removeMovie(movie)">-</button></td>
+            <td class="col-sm-1"><img ng-src="{{movie.ImageUrl}}" alt="" style="width:50px; height: 50px;"></td>
+            <td class="col-sm-8">{{movie.Name}} Rating: {{movie.Rating}} of {{movie.Raters}} votes.</td>
+            <td class="col-sm-2"><a ui-sref="movie.edit({id: movie.Id})">See Profile</a></td>
+        </tr>
+        <tr ng-if="!selectedMovies.length">
+            <td>There are no Movies associated to this Actor, would you like to add some?</td>
+        </tr>
+    </table>
+   </fieldset>
+</div>
+<div class="row">
+  <fieldset>
+      <legend>Add new Movies</legend>
+   <label class="pull-right">Search:<input type="text" ng-model="searchNewMovie"></label>
+    <table class="table table-striped table-condensed">
+        <tr ng-repeat="movie in movies | filter: searchNewMovie">
+            <td class="col-sm-1"><button type="button" class="btn btn-primary" ng-click="selectMovie(movie)">+</button></td>
+            <td class="col-sm-1"><img ng-src="{{movie.ImageUrl}}" alt="" style="width:50px; height: 50px;"></td>
+            <td class="col-sm-8">{{movie.Name}} Rating: {{movie.Rating}} of {{movie.Raters}} votes.</td>
+            <td class="col-sm-2"><a ui-sref="movie.edit({id: movie.Id})">See Profile</a></td>
+        </tr>
+    </table>
+  </fieldset>
+</div>
